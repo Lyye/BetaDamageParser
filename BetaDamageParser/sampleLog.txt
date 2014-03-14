@@ -1,0 +1,14 @@
+﻿[Wed Mar 12 00:23:17 2014] Logging to 'eqlog.txt' is now *ON*.
+[Wed Mar 12 00:23:24 2014] Targeted (NPC): a cave bat
+[Wed Mar 12 00:23:24 2014] Right click on the NPC to consider it.
+[Wed Mar 12 00:23:26 2014] Auto attack is on.
+[Wed Mar 12 00:23:26 2014] a cave bat flies forward, gnashing its teeth.
+[Wed Mar 12 00:23:26 2014] You crush a cave bat for 7 points of damage.
+[Wed Mar 12 00:23:26 2014] A cave bat bites YOU for 5 points of damage.
+[Wed Mar 12 00:23:28 2014] You kick a cave bat for 3 points of damage.
+[Wed Mar 12 00:23:29 2014] You crush a cave bat for 7 points of damage.
+[Wed Mar 12 00:23:29 2014] You have slain a cave bat!
+[Wed Mar 12 00:23:29 2014] You gain experience!!
+[Wed Mar 12 00:23:29 2014] Your faction standing with Guards of Gloomingdeep got better.
+[Wed Mar 12 00:23:29 2014] a cave bat`s corpse flutters to the ground.
+[Wed Mar 12 00:23:44 2014] Flutterwing begins to cast a spell.
