@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Text.RegularExpressions;
+using BetaDamageParser;
 
 namespace DipsParse
 {
@@ -11,7 +12,7 @@ namespace DipsParse
     {
         static void Main(string[] args)
         {
-            Parser a = new Parser();
+            parserr a = new parserr();
             a.parseFile("sampleLog.txt");
         }
     }
