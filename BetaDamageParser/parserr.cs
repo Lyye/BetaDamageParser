@@ -50,9 +50,9 @@ namespace BetaDamageParser
                                     string damage = noDamageText.Substring(noDamageText.LastIndexOf(' ') + 1);
                                     string defenderCleanOne = noDamageText.Substring(noDamageText.IndexOf(attackArray[i]) + 1);
                                     string defenderCleanTwo = defenderCleanOne.Substring(defenderCleanOne.IndexOf(' ') + 1);
-                                    int defednerIndex = defenderCleanTwo.IndexOf(" for ");
-                                    if (defednerIndex > 0)
-                                        defender = defenderCleanTwo.Substring(0, defednerIndex);
+                                    int defenderIndex = defenderCleanTwo.IndexOf(" for ");
+                                    if (defenderIndex > 0)
+                                        defender = defenderCleanTwo.Substring(0, defenderIndex);
                                     int dam = Convert.ToInt32(damage);
 
                                     if (!dDamTable.ContainsKey(attacker))
