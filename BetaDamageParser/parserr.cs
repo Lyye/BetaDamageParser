@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Windows.Forms;
 
 namespace BetaDamageParser
 {
@@ -16,6 +17,7 @@ namespace BetaDamageParser
         string noTimeStamp;
         string withTimeStamp;
         string[] attackArray;
+        string forBox;
 
         public void parseFile(string fileName)
         {
@@ -56,31 +58,31 @@ namespace BetaDamageParser
                                     if (!dDamTable.ContainsKey(attacker))
                                     {
                                         dDamTable.Add(attacker, dam);
-                                        foreach (KeyValuePair<string, int> kv in dDamTable)
-                                        {
-                                            Console.WriteLine("Key = {0}, Value = {1}", kv.Key, kv.Value);
-                                        }
                                     }
                                     else
                                     {
                                         dDamTable[attacker] += dam;
-                                        foreach (KeyValuePair<string, int> kv in dDamTable)
-                                        {
-                                            Console.WriteLine("Key = {0}, Value = {1}", kv.Key, kv.Value);
-                                        }
-
                                     }
+
                                     Console.WriteLine("No Time Stamp: " + noTimeStamp + ".");
                                     Console.WriteLine("Attacker: " + attacker + ".");
                                     Console.WriteLine("Damage: " + dam + ".");
                                     Console.WriteLine("Defender: " + defender + ".");
                                     //Console.WriteLine("other1: " + defenderCleanOne + ".");
                                     //Console.WriteLine("other2: " + defenderCleanTwo + ".");
-                                    Console.WriteLine("");                                
+                                    Console.WriteLine("");
+                                    foreach (KeyValuePair<string, int> kv in dDamTable)
+                                    {
+                                        Console.WriteLine("Key = {0}, Value = {1}", kv.Key, kv.Value);
+                                    }
                             }
                         }
                     }
                 }
+            }
+            foreach (KeyValuePair<string, int> kv in dDamTable)
+            {
+                Console.WriteLine("Key = {0}, Value = {1}", kv.Key, kv.Value);
             }
             Console.ReadLine();
         }
