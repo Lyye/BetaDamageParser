@@ -35,9 +35,7 @@ namespace BetaDamageParser
                     {
                         if (withTimeStamp.Contains(attackArray[i]))
                         {
-                            if (!withTimeStamp.Contains("hits them"))
-                            {
-                                if (!withTimeStamp.Contains("misses"))
+                            if (!withTimeStamp.Contains("hits them") && !withTimeStamp.Contains(" misses") && !withTimeStamp.Contains(" miss"))
                                 {
                                     string noTimeStamp = withTimeStamp.Substring(withTimeStamp.IndexOf(']') + 2);
 
@@ -54,21 +52,31 @@ namespace BetaDamageParser
                                     if (defednerIndex > 0)
                                         defender = defenderCleanTwo.Substring(0, defednerIndex);
                                     int dam = Convert.ToInt32(damage);
-                                    dDamTable.Add(attacker, dam);
-                                    foreach (KeyValuePair<string, int> kv in dDamTable)
+
+                                    if (!dDamTable.ContainsKey(attacker))
                                     {
-                                        Console.WriteLine("Key = {0}, Value = {1}", kv.Key, kv.Value);
+                                        dDamTable.Add(attacker, dam);
+                                        foreach (KeyValuePair<string, int> kv in dDamTable)
+                                        {
+                                            Console.WriteLine("Key = {0}, Value = {1}", kv.Key, kv.Value);
+                                        }
                                     }
+                                    else
+                                    {
+                                        dDamTable[attacker] += dam;
+                                        foreach (KeyValuePair<string, int> kv in dDamTable)
+                                        {
+                                            Console.WriteLine("Key = {0}, Value = {1}", kv.Key, kv.Value);
+                                        }
 
-
+                                    }
                                     Console.WriteLine("No Time Stamp: " + noTimeStamp + ".");
                                     Console.WriteLine("Attacker: " + attacker + ".");
                                     Console.WriteLine("Damage: " + dam + ".");
                                     Console.WriteLine("Defender: " + defender + ".");
                                     //Console.WriteLine("other1: " + defenderCleanOne + ".");
                                     //Console.WriteLine("other2: " + defenderCleanTwo + ".");
-                                    Console.WriteLine("");
-                                }
+                                    Console.WriteLine("");                                
                             }
                         }
                     }
