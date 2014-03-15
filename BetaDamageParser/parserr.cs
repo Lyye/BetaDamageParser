@@ -21,7 +21,7 @@ namespace BetaDamageParser
 
         public void parseFile(string fileName)
         {
-            StreamReader myRead = new StreamReader("sampleLog.txt");
+            StreamReader myRead = new StreamReader(fileName);
             string[] attackArray = File.ReadLines("attacktypes.txt").ToArray();
             Dictionary<string, int> dDamTable = new Dictionary<string, int>();
             string withTimeStamp = "";
@@ -37,7 +37,7 @@ namespace BetaDamageParser
                     {
                         if (withTimeStamp.Contains(attackArray[i]))
                         {
-                            if (!withTimeStamp.Contains("hits them") && !withTimeStamp.Contains(" misses") && !withTimeStamp.Contains(" miss"))
+                            if (!withTimeStamp.Contains("hits them") && !withTimeStamp.Contains(" miss"))
                                 {
                                     string noTimeStamp = withTimeStamp.Substring(withTimeStamp.IndexOf(']') + 2);
 
@@ -63,6 +63,10 @@ namespace BetaDamageParser
                                     {
                                         dDamTable[attacker] += dam;
                                     }
+                                    foreach (KeyValuePair<string, int> kv in dDamTable)
+                                    {
+                                        Console.WriteLine("Key = {0}, Value = {1}", kv.Key, kv.Value);
+                                    }
 
                                     Console.WriteLine("No Time Stamp: " + noTimeStamp + ".");
                                     Console.WriteLine("Attacker: " + attacker + ".");
@@ -71,10 +75,6 @@ namespace BetaDamageParser
                                     //Console.WriteLine("other1: " + defenderCleanOne + ".");
                                     //Console.WriteLine("other2: " + defenderCleanTwo + ".");
                                     Console.WriteLine("");
-                                    foreach (KeyValuePair<string, int> kv in dDamTable)
-                                    {
-                                        Console.WriteLine("Key = {0}, Value = {1}", kv.Key, kv.Value);
-                                    }
                             }
                         }
                     }
