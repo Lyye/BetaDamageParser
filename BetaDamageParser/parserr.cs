@@ -11,49 +11,53 @@ namespace BetaDamageParser
     {
         string attacker;
         string defender;
-        int dam;
-        string damage;
+        string player;
         string noDamageText;
-        string noTimeStamp;
-        string withTimeStamp;
-        string[] attackArray;
-        string forBox;
+        string deathByOther;
+        string deathByYou;
 
         public void parseFile(string fileName)
         {
-            StreamReader myRead = new StreamReader(fileName);
             string[] attackArray = File.ReadLines("attacktypes.txt").ToArray();
+            string fileNameCleanOne = fileName.Substring(fileName.IndexOf('_') + 1);
+            int fileNameIndex = fileNameCleanOne.IndexOf("_");
+            if (fileNameIndex > 0)
+                player = fileNameCleanOne.Substring(0, fileNameIndex);
             Dictionary<string, int> dDamTable = new Dictionary<string, int>();
-            string withTimeStamp = "";
-            while (withTimeStamp != null)
+            using (var fs = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete))
+            using (var reader = new StreamReader(fs))
             {
-                withTimeStamp = myRead.ReadLine();
-                if (withTimeStamp != null)
+                while (true)
                 {
-                    //for debugging
-                    //Console.WriteLine(withTimeStamp);
-
-                    for (int i = 0; i < attackArray.Length; i++)
+                    var withTimeStamp = reader.ReadLine();
+                    if (!String.IsNullOrWhiteSpace(withTimeStamp))
                     {
-                        if (withTimeStamp.Contains(attackArray[i]))
+                        for (int i = 0; i < attackArray.Length; i++)
                         {
-                            if (!withTimeStamp.Contains("hits them") && !withTimeStamp.Contains(" miss"))
+                            if (withTimeStamp.Contains(attackArray[i]))
+                            {
+                                #region Damage Text Parser
+                                if (!withTimeStamp.Contains("hits them") && !withTimeStamp.Contains(" miss") && !withTimeStamp.Contains("is hit"))
                                 {
+                                    withTimeStamp = withTimeStamp.Replace("You", player);
+                                    withTimeStamp = withTimeStamp.Replace("YOU", player);
                                     string noTimeStamp = withTimeStamp.Substring(withTimeStamp.IndexOf(']') + 2);
 
                                     int notAttackerText = noTimeStamp.IndexOf(attackArray[i]);
                                     if (notAttackerText > 0)
                                         attacker = noTimeStamp.Substring(0, notAttackerText);
+
                                     int damageText = noTimeStamp.IndexOf(" point");
                                     if (damageText > 0)
                                         noDamageText = noTimeStamp.Substring(0, damageText);
                                     string damage = noDamageText.Substring(noDamageText.LastIndexOf(' ') + 1);
+                                    int dam = Convert.ToInt32(damage);
+
                                     string defenderCleanOne = noDamageText.Substring(noDamageText.IndexOf(attackArray[i]) + 1);
                                     string defenderCleanTwo = defenderCleanOne.Substring(defenderCleanOne.IndexOf(' ') + 1);
                                     int defenderIndex = defenderCleanTwo.IndexOf(" for ");
                                     if (defenderIndex > 0)
                                         defender = defenderCleanTwo.Substring(0, defenderIndex);
-                                    int dam = Convert.ToInt32(damage);
 
                                     if (!dDamTable.ContainsKey(attacker))
                                     {
@@ -65,26 +69,50 @@ namespace BetaDamageParser
                                     }
                                     foreach (KeyValuePair<string, int> kv in dDamTable)
                                     {
-                                        Console.WriteLine("Key = {0}, Value = {1}", kv.Key, kv.Value);
+                                        Console.WriteLine("Attacker = {0}, Damage = {1}", kv.Key, kv.Value);
                                     }
-
-                                    Console.WriteLine("No Time Stamp: " + noTimeStamp + ".");
-                                    Console.WriteLine("Attacker: " + attacker + ".");
-                                    Console.WriteLine("Damage: " + dam + ".");
-                                    Console.WriteLine("Defender: " + defender + ".");
-                                    //Console.WriteLine("other1: " + defenderCleanOne + ".");
-                                    //Console.WriteLine("other2: " + defenderCleanTwo + ".");
+                                    Console.WriteLine("No Time Stamp: " + noTimeStamp);
                                     Console.WriteLine("");
+                                }
+                                #endregion
                             }
+                            //if (withTimeStamp.Contains("slain"));
+                            //{
+                            //    withTimeStamp = withTimeStamp.Replace("You", player);
+                            //    withTimeStamp = withTimeStamp.Replace("YOU", player);
+                            //    string noTimeStampDeath = withTimeStamp.Substring(withTimeStamp.IndexOf(']') + 2);
+                            //    if (noTimeStampDeath.Contains(" has been"))
+                            //    {
+                            //        int deathByOtherIndex = noTimeStampDeath.IndexOf(" has been");
+                            //        if (deathByOtherIndex > 0)
+                            //            deathByOther = noTimeStampDeath.Substring(0, deathByOtherIndex);
+                            //        Console.WriteLine(deathByOther + ".");
+                            //        if (!dDamTable.ContainsKey(deathByOther))
+                            //        {
+                            //            dDamTable.Remove(deathByOther);
+                            //        }
+                            //    }
+                            //    if (noTimeStampDeath.Contains(" have "))
+                            //    {
+                            //        int deathByYouIndex = noTimeStampDeath.IndexOf(" have ");
+                            //        if (deathByYouIndex > 0)
+                            //            deathByYou = noTimeStampDeath.Substring(0, deathByYouIndex);
+                            //        Console.WriteLine(deathByYou + ".");
+                            //        if (!dDamTable.ContainsKey(deathByYou))
+                            //        {
+                            //            dDamTable.Remove(deathByYou);
+                            //        }
+                            //    }
+                            //}
                         }
                     }
                 }
+                foreach (KeyValuePair<string, int> kv in dDamTable)
+                {
+                    Console.WriteLine("Attacker = {0}, Damage = {1}", kv.Key, kv.Value);
+                }
+                Console.ReadLine();
             }
-            foreach (KeyValuePair<string, int> kv in dDamTable)
-            {
-                Console.WriteLine("Key = {0}, Value = {1}", kv.Key, kv.Value);
-            }
-            Console.ReadLine();
         }
     }
 }

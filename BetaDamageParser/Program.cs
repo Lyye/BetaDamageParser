@@ -14,7 +14,8 @@ namespace DipsParse
         static void Main(string[] args)
         {
             parserr a = new parserr();
-            a.parseFile(C:\games\Everquest server stuff\Underfoot\everquest\Logs\eqlog_Somemonk_PEQTGC.txt);
+            a.parseFile("C:/games/Everquest server stuff/Underfoot/everquest/Logs/eqlog_Somemage_PEQTGC.txt");
+            //a.parseFile("eqlog_Somemonk_PEQTGC.txt");
         }
     }
 }

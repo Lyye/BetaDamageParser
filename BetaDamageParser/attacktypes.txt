@@ -1,14 +1,15 @@
-﻿bites
-bite
-hits
-hit
-crushes
-crush
-slashes
-slash
-punches
-punch
-pierces
-pierce
-kicks
-kick
+﻿ bite 
+ hit 
+ crush 
+ slash 
+ punch 
+ pierce 
+ kick 
+ bites 
+ hits 
+ crushes 
+ slashes 
+ punches 
+ pierces 
+ kicks 
+ was hit

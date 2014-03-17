@@ -56,7 +56,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="misstypes.txt" />
-    <Content Include="sampleLog.txt">
+    <Content Include="eqlog_Somemonk_PEQTGC.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
